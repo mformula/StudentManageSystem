@@ -40,13 +40,17 @@ public class SystemController {
 //	}
 	
 	//第二种方式
+//	@RequestMapping(value="/index",method=RequestMethod.GET)
+//	public ModelAndView index(ModelAndView model) {		
+//		model.addObject("user", "mformula");
+//		model.setViewName("Hello World");
+//		return model;		
+//	}
+	
 	@RequestMapping(value="/index",method=RequestMethod.GET)
-	public ModelAndView index(ModelAndView model) {
-		
-		model.addObject("user", "mformula");
-		model.setViewName("Hello World");
-		return model;
-		
+	public ModelAndView index(ModelAndView model) {		
+		model.setViewName("system/index");
+		return model;		
 	}
 	
 	/**

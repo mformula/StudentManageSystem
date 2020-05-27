@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-
+import org.mformula.entity.User;
+import org.mformula.service.UserService;
 import org.mformula.utils.CpachaUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/system")
 @Controller
 public class SystemController {
+	
+	@Autowired
+	private UserService userService;
 	
 	//第一种方式
 //	@RequestMapping(value="/index",method=RequestMethod.GET)
@@ -69,7 +74,7 @@ public class SystemController {
 			@RequestParam(value="username",required=true) String username,
 			@RequestParam(value="password",required=true) String password,
 			@RequestParam(value="vcode",required=true) String vcode,
-			@RequestParam(value="type",required=true) String type,
+			@RequestParam(value="type",required=true) int type,
 			HttpServletRequest request
 			) {
 		
@@ -104,6 +109,25 @@ public class SystemController {
 		//清空验证码
 		request.getSession().setAttribute("loginCpacha", null);
 		//从数据库中查找用户
+		if(type == 1) {
+			//管理员
+			User user = userService.findByUsername(username);
+			if(null==user) {
+				ret.put("type","error");
+				ret.put("msg","用户不存在！");					
+				return ret;				
+			}
+			if(!password.equals(user.getPassword())){
+				ret.put("type","error");
+				ret.put("msg","密码错误！");					
+				return ret;					
+			}
+			//到此处说明密码正确
+			request.getSession().setAttribute("user", user);
+		}
+		if(type==2) {
+			//学生
+		}			
 		ret.put("type","success");
 		ret.put("msg","登录成功!");					
 		return ret;					

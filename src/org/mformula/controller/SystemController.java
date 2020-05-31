@@ -93,23 +93,23 @@ public class SystemController {
 			ret.put("msg","密码不能为空!");
 			return ret;
 		}
-		if(StringUtils.isEmpty(vcode)) {
-			ret.put("type","error");
-			ret.put("msg","验证码不能为空!");
-			return ret;
-		}
-		String loginCpacha = (String) request.getSession().getAttribute("loginCpacha");
-		//检查验证码是否已失效
-		if(StringUtils.isEmpty(loginCpacha)) {
-			ret.put("type","error");
-			ret.put("msg","长时间未操作，会话已失效，请刷新后重试！");
-			return ret;
-		}
-		if(!vcode.toUpperCase().equals(loginCpacha.toUpperCase())) {
-			ret.put("type","error");
-			ret.put("msg","验证码错误");
-			return ret;
-		}
+//		if(StringUtils.isEmpty(vcode)) {
+//			ret.put("type","error");
+//			ret.put("msg","验证码不能为空!");
+//			return ret;
+//		}
+//		String loginCpacha = (String) request.getSession().getAttribute("loginCpacha");
+//		//检查验证码是否已失效
+//		if(StringUtils.isEmpty(loginCpacha)) {
+//			ret.put("type","error");
+//			ret.put("msg","长时间未操作，会话已失效，请刷新后重试！");
+//			return ret;
+//		}
+//		if(!vcode.toUpperCase().equals(loginCpacha.toUpperCase())) {
+//			ret.put("type","error");
+//			ret.put("msg","验证码错误");
+//			return ret;
+//		}
 		//清空验证码
 		request.getSession().setAttribute("loginCpacha", null);
 		//从数据库中查找用户
@@ -157,6 +157,8 @@ public class SystemController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 		
 	}
 

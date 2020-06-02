@@ -17,4 +17,5 @@ public interface UserService {
 	
 	public int add(User user);
 
+	public int edit(User user);
 }

@@ -17,5 +17,7 @@ public interface UserDao {
 	
 	public int add(User user);
 
+	public int edit(User user);
+	
 	public Integer getTotal(Map<String,Object> query);
 }

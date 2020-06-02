@@ -12,6 +12,11 @@
   	<update id="add" parameterType="User">
   		insert into user(id,username,password) values(null,#{username},#{password})  	
   	</update>
+  	
+  	<update id="edit" parameterType="User">
+  		update user set username=#{username},password=#{password} where id=#{id}
+  	</update>
+  	
   
   	<select id="getList" parameterType="Map" resultType="User">
   		select * from user where username like #{username} limit #{offset},#{pageSize}

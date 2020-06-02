@@ -39,4 +39,10 @@ public class UserServiceImpl implements UserService{
 		return userDao.getTotal(query);
 	}
 
+	@Override
+	public int edit(User user) {
+		// TODO Auto-generated method stub
+		return userDao.edit(user);
+	}
+
 }

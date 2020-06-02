@@ -85,6 +85,46 @@ public class UserController {
 
 	}
 	
+	@RequestMapping(value="/edit",method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,String> edit(User user){
+		
+		Map<String,String> ret = new HashMap<String,String>();
+		
+		if(user==null) {
+			ret.put("type","error");
+			ret.put("msg","数据绑定出错");
+			return ret;						
+		}
+		if(StringUtils.isEmpty(user.getUsername())) {
+			ret.put("type","error");
+			ret.put("msg","用户名不能为空！");
+			return ret;		
+		}
+		if(StringUtils.isEmpty(user.getPassword())) {
+			ret.put("type","error");
+			ret.put("msg","密码不能为空！");
+			return ret;		
+		}
+		User existUser = userService.findByUsername(user.getUsername());
+		if(existUser!=null) {
+			if(user.getId()!=existUser.getId()) {
+				ret.put("type","error");
+				ret.put("msg","该用户名已存在！");
+				return ret;		
+			}			
+		}
+		if(userService.edit(user)<=0) {
+			ret.put("type","error");
+			ret.put("msg","修改失败！");
+			return ret;		
+		}		
+		ret.put("type","success");
+		ret.put("msg","修改成功！");
+		return ret;			
+
+	}
+	
 	
 
 }
